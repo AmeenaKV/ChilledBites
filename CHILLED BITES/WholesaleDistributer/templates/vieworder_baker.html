@@ -1,0 +1,48 @@
+{% extends 'bakerbase.html'%}
+{% block content %}
+<div class="container">
+    <h2 class="text-center text-warning mb-5">View Order</h2>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-bordered table-striped table-hover">
+                <thead class="bg-warning text-white">
+                    <tr>
+                        <th>Order Id</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone_No</th>
+                        <th>Status</th>
+                        <th></th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for v in orders %}
+                    <tr>
+                        <td>{{v.id}}</td>
+                        <td>{{v.Name}}</td>
+                        <td>{{v.Email}}</td>
+                        <td>{{v.Phone_No}}</td>
+                        <td>{{v.Status}}</td>
+                        <td class="text-right"> <a href="{% url 'orderDetailsActionBaker' v.id %}" class="btn btn-sm btn-warning">Order Details</a></td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="text-center">
+                            Nothing to Display
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% if messages %}
+{% for msg in messages %}
+<script>
+    alert('{{ msg }}')
+</script>
+{% endfor %}
+{% endif %}
+{% endblock %}

@@ -1,0 +1,79 @@
+{% extends 'commonbase.html'%}
+{% block content %}
+<div class="title text-center mb-5">
+    <h3 class="text-warning mb-2">Login</h3>
+</div>
+<div class="row support-bottom">
+    <!-- Hover Effect Style : Demo - 15 -->
+    <div class="container">
+        <form method="post" action="{% url 'loginAction' %}">
+            {% csrf_token %}
+            <div class="row">
+                <div class="offset-md-3 col-md-6">
+                    <table>
+                        <div class="form-group row">
+                            <label for="" class="col-md-4">Username</label>
+                            <input type="text" name="Username" id="Username" class="form-control col-md-8">
+                        </div>
+                        <tr>
+                            <div class="form-group row">
+                                <label for="" class="col-md-4">Password</label>
+                                <input type="password" name="Password" id="Password" class="form-control col-md-8">
+                            </div>
+                        </tr>
+                        <tr>
+                            <div class="row">
+                                <label for="" class="col-md-4">
+                                </label>
+                                <input type="submit" class="btn btn-warning col-md-4" value="LOGIN"
+                                    onClick="return validation()">
+                            </div>
+                            <div class="form-group row">
+                                <a href="{% url 'forgotPassword' %}" class="text-center text-primary col-md-12">Forgot
+                                    Password?</a>
+                            </div>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12 text-center">
+
+    </div>
+</div>
+<script type="text/javascript">
+    function validation() {
+        var alpha = /^[a-zA-Z]+$/;
+        var num = /^[0-9]+$/;
+        var pass =  /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
+        var Username = document.getElementById("Username");
+        var Password = document.getElementById("Password");
+
+        if (Username.value.length == 0) {
+            alert("Enter an username");
+            return false;
+        }
+        else if (Password.value.length == 0) {
+            alert("Enter a password");
+            return false;
+        }
+        else if (!Password.value.match(pass)) {
+            alert("Password contains 8 to 15 characters with at least one lowercase letter, one uppercase letter, one numeric digit, and one special character");
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+</script>
+{% if messages %}
+{% for msg in messages %}
+<script>
+    alert('{{ msg }}')
+</script>
+{% endfor %}
+{% endif %}
+{% endblock %}

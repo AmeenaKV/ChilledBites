@@ -1,0 +1,96 @@
+{% extends 'adminbase.html'%}
+{% block content %}
+<script src="/static/web/js/jquery-2.2.3.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#btnSearch").click(function () {
+            $.ajax({
+                url: "{% url 'viewBakersOrder' %}",
+                method: "GET",
+                data: {
+                    bakerid: $("#ddlhomebaker").val()
+                },
+                success: function (data) {
+                    $("#divResult").empty();
+                    $("#divResult").append(data);
+                    $(".aOrderDetails").each((index, element) => {
+                        var newelement=element.toString().substr(0,(element.toString().length-2))
+                        $($(".aOrderDetails")[index]).attr('href', newelement + '/'+$('#ddlhomebaker').val());
+                    })
+
+
+                },
+                error: function (error) {
+                    alert("Something went wrong");
+                }
+            })
+        });
+        $(".aOrderDetails").click(function () {
+            debugger;
+            alert($(this).prop('href'));
+        });
+    });
+</script>
+<div class="container">
+    <h2 class="text-center text-warning mb-5">View Cake Orders</h2>
+    <div class="row mb-5">
+        <div class="col-md-2">
+            Select Home Baker
+        </div>
+        <div class="col-md-6">
+            <select name="ddlhomebaker" id="ddlhomebaker" class="form-control">
+                <option value="0">----Select----</option>
+                {% for v in bakers%}
+                <option value="{{v.id}}">{{v.Name}}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-4">
+            <input type="button" class="btn btn-warning btn-block" id="btnSearch" value="Search">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12" id="divResult">
+            <table class="table table-bordered table-striped table-hover">
+                <thead class="bg-warning text-white">
+                    <tr>
+                        <th>Order Id</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone_No</th>
+                        <th>Status</th>
+                        <th></th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for v in orders %}
+                    <tr>
+                        <td>{{v.id}}</td>
+                        <td>{{v.Name}}</td>
+                        <td>{{v.Email}}</td>
+                        <td>{{v.Phone_No}}</td>
+                        <td>{{v.Status}}</td>
+                        <td class="text-right"> <a href="{% url 'bakerOrderDetailsActionAdmin' v.id 0 %}"
+                                class="btn btn-sm btn-warning">Order Details</a></td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="text-center">
+                            Nothing to Display
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% if messages %}
+{% for msg in messages %}
+<script>
+    alert('{{ msg }}')
+</script>
+{% endfor %}
+{% endif %}
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'adminbase.html'%}
+{% block content %}
+<div class="container">
+    <h2 class="text-center text-warning mb-5">Approve Staff</h2>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-bordered table-striped table-hover">
+                <thead class="bg-warning text-white">
+                    <tr>
+                        <th>Name</th>
+                        <th>Address</th>
+                        <th>Phone_No</th>
+                        <th>Username</th>
+                        <th></th>
+                    </tr>
+
+                </thead>
+                <tbody>
+                    {% for v in staff %}
+                    <tr>
+
+                        <td>{{v.Name}}</td>
+                        <td>{{v.Address}}</td>
+                        <td>{{v.Phone_No}}</td>
+                        <td>{{v.Username}}</td>
+                        <td class="text-center"> <a href="{% url 'detailstaff' v.id %}"
+                                class="btn btn-sm btn-warning">Details</a></td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                       <td colspan="5" class="text-center">Nothing to Display</td>
+                    </tr> 
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% if messages %}
+{% for msg in messages %}
+<script>
+    alert('{{ msg }}')
+</script>
+{% endfor %}
+{% endif %}
+{% endblock %}

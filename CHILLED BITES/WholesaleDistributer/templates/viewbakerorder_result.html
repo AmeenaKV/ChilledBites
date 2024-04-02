@@ -1,0 +1,32 @@
+<table class="table table-bordered table-striped table-hover">
+    <thead class="bg-warning text-white">
+        <tr>
+            <th>Order Id</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone_No</th>
+            <th>Status</th>
+            <th></th>
+
+        </tr>
+    </thead>
+    <tbody>
+        {% for v in orders %}
+        <tr>
+            <td>{{v.id}}</td>
+            <td>{{v.Name}}</td>
+            <td>{{v.Email}}</td>
+            <td>{{v.Phone_No}}</td>
+            <td>{{v.Status}}</td>
+            <td class="text-right"> <a href="{% url 'bakerOrderDetailsActionAdmin' v.id 0 %}"
+                    class="btn btn-sm btn-warning aOrderDetails">Order Details</a></td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5" class="text-center">
+                Nothing to Display
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

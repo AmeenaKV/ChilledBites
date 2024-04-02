@@ -1,0 +1,52 @@
+{% extends 'adminbase.html'%}
+{% block content %}
+<div class="container">
+    <h2 class="text-center text-warning mb-5">Approved User</h2>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-bordered table-striped table-hover">
+                <thead class="bg-warning text-white">
+                    <tr>
+                        <th>Name</th>
+                        <th>Address</th>
+                        <th>Phone_No</th>
+                        <th>Email</th>
+                        <th>City</th>
+                        <th>Status</th>
+                        <th></th>
+                    </tr>
+
+                </thead>
+                <tbody>
+                    {% for v in user %}
+                    <tr>
+
+                        <td>{{v.Name}}</td>
+                        <td>{{v.Address}}</td>
+                        <td>{{v.Phone_No}}</td>
+                        <td>{{v.Email}}</td>
+                        <td>{{v.City}}</td>
+                        <td>{{v.Status}}</td>
+                        <td class="text-center"> <a href="{% url 'deleteUser' v.id %}"
+                                class="btn btn-sm btn-warning">Delete</a></td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <div class="container border  mt-5 p-3">
+                            <h4 class="text-center text-warning mb-5">Nothing to display</h4>
+                        </div>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% if messages %}
+{% for msg in messages %}
+<script>
+    alert('{{ msg }}')
+</script>
+{% endfor %}
+{% endif %}
+{% endblock %}

@@ -1,0 +1,72 @@
+{% extends 'userbase.html'%}
+{% block content %}
+<div class="container">
+    <h2 class="text-center text-warning mb-5">View Cart</h2>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-bordered table-striped table-hover">
+                <thead class="bg-warning text-white">
+
+
+                    <tr>
+                        <th>CartId</th>
+                        <th>ProductName</th>
+                        <th>Image</th>
+                        <th>Count</th>
+                        <th>Price</th>
+                        <th></th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for v in vcart %}
+
+                    {% if v.ProductId %}
+                    <tr>
+                        <td>{{v.ProductId.id}}</td>
+                        <td>{{v.ProductId.Name}}</td>
+                        <td><img src="{{ v.ProductId.Image.url }}" alt="" class="img img-thumbnail" height="150px"
+                                width="100px"></td>
+                        <td><a href="{% url 'minusItem' v.id %}" class="text-warning btn-sm">-</a>{{v.Count}} <a
+                                href="{% url 'plusItem' v.id %}" class="text-warning btn-sm">+</a></td>
+                        <td>{{v.Price}}</td>
+                        <td class="text-center"> <a href="{% url 'deleteItem' v.id %}" class="btn btn-sm btn-warning">Delete</a></td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td>{{v.BakerProductId.id}}</td>
+                        <td>{{v.BakerProductId.Name}}</td>
+                        <td><img src="{{ v.BakerProductId.Image.url }}" alt="" class="img img-thumbnail" height="150px"
+                                width="100px"></td>
+                        <td><a href="{% url 'minusItem' v.id %}" class="text-warning btn-sm">-</a>{{v.Count}} <a
+                                href="{% url 'plusItem' v.id %}" class="text-warning btn-sm">+</a></td>
+                        <td>{{v.Price}}</td>
+                        <td class="text-center"> <a href="{% url 'deleteItem' v.id %}" class="btn btn-sm btn-warning">Delete</a></td>
+                    </tr>
+
+                    {% endif %}
+
+                    {% empty %}
+                    <tr>
+                        <td colspan="6"n class="text-center">
+                            There is no item in your cart
+                        </td>
+                    </tr>
+
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    {% if vcart.count %}
+    <a href="{% url 'orderSummary' %}" class="btn btn-warning offset-md-4 col-md-4">Order Summary</a>
+    {% endif %}
+</div>
+{% if messages %}
+{% for msg in messages %}
+<script>
+    alert('{{ msg }}')
+</script>
+{% endfor %}
+{% endif %}
+{% endblock %}

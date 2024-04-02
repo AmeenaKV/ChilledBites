@@ -1,0 +1,94 @@
+{% extends 'adminbase.html'%}
+{% block content %}
+<div class="featured-section py-0" id="products">
+        <div class="container py-xl-0 py-lg-3">
+                <div class="title text-center mb-5">
+                        <h3 class="text-dark mb-2">Our Products</h3>
+                        <p>High-quality ingredients,a unique and delicious flavor profile.</p>
+                </div>
+                <div class="content-bottom-in">
+                        <ul id="flexiselDemo1">
+                                <li>
+                                        <div class="w3l-specilamk">
+                                                <div class="row">
+                                                        <div class="col-lg-6 product-name-w3l">
+                                                                <h4 class="font-weight-bold">Mango Kulfi</h4>
+                                                                <p class="dont-inti-w3ls mt-4 mb-2">Offering a refreshing and indulgent tropical flavor experience.</p>
+                                                                <p>Mango kulfi is a traditional Indian frozen dessert made with rich and creamy milk, sweet mango puree, and a blend of fragrant spices.</p>
+                                                        </div>
+                                                        <div class="col-lg-6 speioffer-agile">
+                                                                <img src="/static/web/images/product1.png" alt="" class="img-fluid">
+                                                                <!-- <img src="/static/web/images/product1.jpg" alt="" class="img-fluid"> -->
+                                                        </div>
+                                                </div>
+                                        </div>
+                                </li>
+                                <li>
+                                        <div class="w3l-specilamk">
+                                                <div class="row">
+                                                        <div class="col-lg-6 product-name-w3l">
+                                                                <h4 class="font-weight-bold">Chocolate Truffle Cake</h4>
+                                                                <p class="dont-inti-w3ls mt-4 mb-2">The perfect treat for chocolate lovers and is often served on special occasions.</p>
+                                                                <p>Chocolate truffle cake is a rich and indulgent dessert that is made with a dense chocolate cake base and a creamy ganache topping.</p>
+                                                        </div>
+                                                        <div class="col-lg-6 speioffer-agile">
+                                                                <img src="/static/web/images/product2.jpg" alt="" class="img-fluid">
+                                                        </div>
+                                                </div>
+                                        </div>
+                                </li>
+                                <li>
+                                        <div class="w3l-specilamk">
+                                                <div class="row">
+                                                        <div class="col-lg-6 product-name-w3l">
+                                                                <h4 class="font-weight-bold">Chicku Kulfi</h4>
+                                                                <p class="dont-inti-w3ls mt-4 mb-2">Has a creamy texture and a sweet, fruity flavor that is perfect for hot summer days.</p>
+                                                                <p>Chicku kulfi is a frozen dessert that is made with chicku fruit pulp, condensed milk, and cream.</p>
+                                                        </div>
+                                                        <div class="col-lg-6 speioffer-agile">
+                                                                <img src="/static/web/images/product3.jpg" alt="" class="img-fluid">
+                                                        </div>
+                                                </div>
+                                        </div>
+                                </li>
+                                <li>
+                                        <div class="w3l-specilamk">
+                                                <div class="row">
+                                                        <div class="col-lg-6 product-name-w3l">
+                                                                <h4 class="font-weight-bold">Raffaello Cake</h4>
+                                                                <p class="dont-inti-w3ls mt-4 mb-2">Delicious dessert that is made with layers of soft sponge cake, coconut filling, and whipped cream.</p>
+                                                                <p> Topped with coconut flakes and Raffaello candy, it has a delicate, nutty flavor and a light, fluffy texture that is sure to satisfy any sweet tooth.</p>
+                                                        </div>
+                                                        <div class="col-lg-6 speioffer-agile">
+                                                                <img src="/static/web/images/product4.jpg" alt="" class="img-fluid">
+                                                        </div>
+                                                </div>
+                                        </div>
+                                </li>
+                                <li>
+                                        <div class="w3l-specilamk">
+                                                <div class="row">
+                                                        <div class="col-lg-6 product-name-w3l">
+                                                                <h4 class="font-weight-bold">Tender Coconut Kulfi</h4>
+                                                                <p class="dont-inti-w3ls mt-4 mb-2">Has a delicate, nutty flavor and is perfect for hot summer days or as a sweet ending to a meal.</p>
+                                                                <p>Tender coconut kulfi is a refreshing and creamy frozen dessert made with tender coconut water, milk, and sugar.</p>
+                                                        </div>
+                                                        <div class="col-lg-6 speioffer-agile">
+                                                                <img src="/static/web/images/product5.jpg" alt="" class="img-fluid">
+                                                        </div>
+                                                </div>
+                                        </div>
+                                </li>
+                        </ul>
+                </div>
+        </div>
+</div>
+
+{% if messages %}
+{% for msg in messages %}
+<script>
+        alert('{{ msg }}')
+</script>
+{% endfor %}
+{% endif %}
+{% endblock %}

@@ -1,0 +1,54 @@
+{% extends 'adminbase.html'%}
+{% block content %}
+<div class="container">
+    <div class="title text-center mb-5">
+        <h3 class="text-warning mb-2">View Orders</h3>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-bordered table-striped table-hover">
+                <thead class="bg-warning text-white">
+
+                    <tr>
+                        <th>Order Id</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone_No</th>
+                        <th>Grand Total</th>
+                        <th>Status</th>
+                        <th></th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for v in orders %}
+                    <tr>
+                        <td>{{v.id}}</td>
+                        <td>{{v.Name}}</td>
+                        <td>{{v.Email}}</td>
+                        <td>{{v.Phone_No}}</td>
+                        <td>{{v.GrandTotal}}</td>
+                        <td>{{v.Status}}</td>
+                        <td class="text-right"> <a href="{% url 'orderDetailsAction' v.id %}"
+                                class="btn btn-sm btn-warning">Order Details</a></td>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="text-center">
+                            Nothing to Display
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% if messages %}
+{% for msg in messages %}
+<script>
+    alert('{{ msg }}')
+</script>
+{% endfor %}
+{% endif %}
+{% endblock %}

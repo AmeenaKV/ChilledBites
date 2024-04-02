@@ -1,0 +1,169 @@
+{% extends 'adminbase.html'%}
+{% block content %}
+<div class="container">
+    <h2 class="text-center text-warning mb-5">Order Details</h2>
+    <form method="post" action="{% url 'addStatusAdmin'  %}">
+        {% csrf_token %}
+        {% for x in orders %}
+        <div class="row">
+            <div class="col-md-6">
+                <tr>
+                    <div class="form-group">
+                        <input type="hidden" name="Oid" value="{{x.id}}" class="form-control">
+                    </div>
+                <tr>
+                    <div class="form-group">
+                        <label for="">Name</label>
+                        <input type="text" name="Name" value="{{x.Name}}" class="form-control">
+                    </div>
+                </tr>
+                <tr>
+                    <div class="form-group">
+                        <label for="">Address</label>
+                        <textarea name="Address" cols="30" rows="10" class="form-control">{{x.Address}}</textarea>
+                    </div>
+                </tr>
+                <tr>
+                    <div class="form-group">
+                        <label for="">Phone_No</label>
+                        <input type="text" name="Phone_No" value="{{x.Phone_No}}" class="form-control">
+                    </div>
+                </tr>
+                <tr>
+                    <div class="form-group">
+                        <label for="">Email</label>
+                        <input type="text" name="Email" value="{{x.Email}}" class="form-control">
+                    </div>
+                </tr>
+                <tr>
+                    <div class="form-group">
+                        <label for="">City</label>
+                        <input type="text" name="City" value="{{x.City}}" class="form-control">
+                    </div>
+                </tr>
+                <tr>
+                    <div class="form-group">
+                        <label for="">Pincode</label>
+                        <input type="text" name="Pincode" value="{{x.Pincode}}" class="form-control">
+                    </div>
+                </tr>
+                <tr>
+                    <div class="form-group">
+                        <label for="">Status</label>
+                        <input type="text" name="Status" value="{{x.Status}}" class="form-control">
+                    </div>
+                </tr>
+                <tr>
+                    <div class="form-group">
+                        <label for="">Grand Total</label>
+                        <input type="text" name="GrandTotal" value="{{x.GrandTotal}}" class="form-control" readonly>
+                    </div>
+                </tr>
+                <tr>
+                    <div class="form-group">
+                        <label for="">Payment Mode</label>
+                        <input type="text" name="Status" value="{{x.PaymentMode}}" class="form-control">
+                    </div>
+                </tr>
+            </div>
+            <div class="col-md-6">
+                <table class="table table-bordered table-striped table-hover">
+                    <thead class="bg-warning text-white">
+                        <tr>
+                            <th>CartId</th>
+                            <th>ProductName</th>
+                            <th>Image</th>
+                            <th>Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for v in items %}
+
+                        {% if v.ProductId %}
+                        <tr>
+                            <td>{{v.ProductId.id}}</td>
+                            <td>{{v.ProductId.Name}}</td>
+                            <td><img src="{{ v.ProductId.Image.url }}" alt="" class="img img-thumbnail" height="150px"
+                                    width="100px"></td>
+                            <td>{{v.Price}}</td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td>{{v.BakerProductId.id}}</td>
+                            <td>{{v.BakerProductId.Name}}</td>
+                            <td><img src="{{ v.BakerProductId.Image.url }}" alt="" class="img img-thumbnail"
+                                    height="150px" width="100px"></td>
+                            <td>{{v.Price}}</td>
+                        </tr>
+
+                        {% endif %}
+                        {% empty %}
+                        <tr>
+                            <td class="text-center" colspan="4">Nothing to Display</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% if x.Status == 'Cancelled' and x.PaymentMode == 'card' %}
+                <a href="{% url 'refundPayment' x.GrandTotal x.UserId_id x.id %}"
+                    class="btn btn-success btn-block mt-5">Initiate Refund</a>
+                {% endif %}
+            </div>
+        </div>
+
+        <table>
+            <tr>
+                <h4 class="text-center text-warning mb-3">Order Status</h4>
+                <table class="table table-bordered table-striped table-hover">
+                    <thead class="bg-warning text-white">
+                        <tr>
+                            <th>Id</th>
+                            <th>Date</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for v in tracking %}
+                        <tr>
+                            <td>{{v.id}}</td>
+                            <td>{{v.Date}}</td>
+                            <td>{{v.Status}}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="3" class="text-center">
+                                Nothing to Display
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </tr>
+            <tr>
+                <div class="form-group">
+                    <label for="">Status</label>
+                    <textarea name="Status" id="" cols="30" rows="10" class="form-control"
+                        placeholder="Enter order status here"></textarea>
+                </div>
+
+            </tr>
+            <tr>
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <input type="submit" class="btn btn-warning col-md-4" value="Add">
+                    </div>
+                </div>
+            </tr>
+        </table>
+        {% endfor %}
+</div>
+</form>
+</div>
+{% if messages %}
+{% for msg in messages %}
+<script>
+    alert('{{ msg }}')
+</script>
+{% endfor %}
+{% endif %}
+{% endblock %}

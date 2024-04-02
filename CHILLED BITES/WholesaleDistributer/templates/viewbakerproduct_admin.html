@@ -1,0 +1,76 @@
+{% extends 'adminbase.html'%}
+{% block content %}
+<div class="title text-center mb-5">
+    <h2 class="text-warning mb-2">View Baker Product</h2>
+</div>
+<div class="row support-bottom">
+    <!-- Hover Effect Style : Demo - 15 -->
+    <div class="container">
+        {% for v in products %}
+        <form method="post" action="{% url 'viewBakerProductAction' %}">
+            {% csrf_token %}
+            <div class="row">
+                <div class="offset-md-3 col-md-6">
+                    <div class="form-group">
+                        <input type="hidden" name="pid" value="{{v.id}}" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <img src="{{ v.Image.url }}" alt="" class="img img-thumbnail" height="150px" width="100px">
+                    </div>
+                    <div class="form-group">
+                        <label for="">Name</label>
+                        <input type="text" name="Name" value="{{v.Name}}" class="form-control" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="">Price</label>
+                        <input type="text" name="Price" value="{{v.Price}}" class="form-control" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="">AdminPrice</label>
+                        <input type="text" name="adminPrice" value="{{v.AdminPrice}}" class="form-control">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 text-center">
+                            <input type="submit" class="btn btn-warning col-md-4" value="Update"
+                                onClick="return validation()">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        {% empty %}
+        <div class="container border  mt-5 p-3">
+            <h4 class="text-center text-warning mb-5">No Products</h4>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<script type="text/javascript">
+    debugger;
+    function validation() {
+        var alpha = /^[a-zA-Z\s]+$/;
+        var num = /^[0-9]+$/;
+        var adminPrice = document.getElementById("adminPrice");
+
+        if (adminPrice.value.length == 0) {
+            alert("Enter a price")
+            return false;
+        }
+        else if (!adminPrice.value.match(num)) {
+            alert("Enter a valid price")
+            price.focus();
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+</script>
+{% if messages %}
+{% for msg in messages %}
+<script>
+    alert('{{ msg }}')
+</script>
+{% endfor %}
+{% endif %}
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends 'userbase.html'%}
+{% block content %}
+<div class="title text-center mb-5">
+    <h2 class="text-warning mb-2">Feedback</h2>
+</div>
+<div class="row support-bottom">
+    <!-- Hover Effect Style : Demo - 15 -->
+    <div class="container">
+
+        <form method="post" action="{% url 'bakerProductFeedbackAction' %}">
+            {% csrf_token %}
+            <input type="hidden" name="id" id="id" value="{{id}}">
+            <div class="form-group">
+                <label for="">Description</label>
+                <textarea name="Description" cols="30" rows="10" id="Description" class="form-control"></textarea>
+            </div>
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <input type="submit" class="btn btn-warning col-md-4" value="Send" onClick="return validation()">
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript">
+    debugger;
+    function validation() {
+        var alpha = /^[a-zA-Z\s]+$/;
+        var num = /^[0-9]+$/;
+        var description = document.getElementById("Description");
+        if (description.value.length == 0) {
+            alert("Enter description")
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+</script>
+{% if messages %}
+{% for msg in messages %}
+<script>
+    alert('{{ msg }}')
+</script>
+{% endfor %}
+{% endif %}
+{% endblock %}

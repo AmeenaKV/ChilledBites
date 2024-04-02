@@ -1,0 +1,21 @@
+<div>
+    {% for v in userfeedback %}
+    <div class="row">
+        <div class="col-md-6 text-left"><h5>{{v.UserId.Name}}</h5></div>
+        <!-- <div class="col-md-6 text-right"><span class="text-muted"><i>12/10/2023 5:30</i></span></div> -->
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <p>
+                {{v.Description}}
+            </p>
+        </div>
+    </div>
+    {% empty %}
+    <div class="row">
+        <div class="col-md-12 text-center">
+            <h5>There is no feedbacks</h5>
+        </div>
+    </div>
+    {% endfor %}
+</div>

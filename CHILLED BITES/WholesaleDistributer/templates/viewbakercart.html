@@ -1,0 +1,44 @@
+{% extends 'commonbase.html'%}
+{% block content %}
+<div class="container border  mt-5 p-3">
+    <h2 class="text-center text-primary mb-5">View Cart</h2>
+    <div class="row">
+        <div class="col-md-6">
+            <table class="table table-bordered table-striped table-hover">
+                <thead class="bg-primary text-white">
+                    <tr>
+                        <th>CartId</th>
+                        <th>ProductName</th>
+                        <th>Image</th>
+                        <th>Count</th>
+                        <th>Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for v in vcart %}
+                    <tr>
+                        <td>{{v.id}}</td>
+                        <td>{{v.BakerProductId.Name}}</td>
+                        <td><img src="{{ v.BakerProductId.Image.url }}" alt="" class="img img-thumbnail" height="150px"
+                                width="100px"></td>
+                        <td><a href="{% url 'minusItem' v.id %}">-</a>{{v.Count}} <a
+                                href="{% url 'plusItem' v.id %}">+</a></td>
+                        <td>{{v.Price}}</td>
+
+                        <td><a href="{% url 'deleteItem' v.id %}">Delete</a></td>
+
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% if messages %}
+{% for msg in messages %}
+<script>
+    alert('{{ msg }}')
+</script>
+{% endfor %}
+{% endif %}
+{% endblock %}

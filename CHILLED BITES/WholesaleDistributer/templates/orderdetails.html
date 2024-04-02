@@ -1,0 +1,102 @@
+{% extends 'userbase.html'%}
+{% block content %}
+<div class="container">
+    <h2 class="text-center text-warning mb-5">Order Summary</h2>
+    <form method="post" action="{% url 'orderDetails'  %}">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-6">
+
+
+                {% for v in user %}
+                <div class="form-group">
+                    <label for="">Name</label>
+                    <input type="text" name="Name" value="{{v.Name}}" id="Name" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="">Address</label>
+                    <textarea name="Address" cols="30" rows="10" class="form-control">{{v.Address}}</textarea>
+                </div>
+                <div class="form-group">
+                    <label for="">Phone No</label>
+                    <input type="text" name="Phone_No" value="{{v.Phone_No}}" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="">Email</label>
+                    <input type="text" name="Email" value="{{v.Email}}" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="">City</label>
+                    <input type="text" name="City" value="{{v.City}}" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="">Pincode</label>
+                    <input type="text" name="Pincode" value="{{v.Pincode}}" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="">Grand Total</label>
+                    <input type="text" name="GrandTotal" value="{{gt}}" class="form-control" readonly>
+                </div>
+                {% endfor %}
+            </div>
+            <div class="col-md-6">
+                <table class="table table-bordered table-striped table-hover">
+                    <thead class="bg-warning text-white">
+                        <tr>
+                            <th>Product Name</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Image</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+
+
+                        {% for v in vcart %}
+
+                        {% if v.ProductId %}
+                        <tr>
+                            <td>{{v.ProductId.Name}}</td>
+                            <td>{{v.Count}}</td>
+                            <td>{{v.Price}}</td>
+                            <td><img src="{{ v.ProductId.Image.url }}" alt="" class="img img-thumbnail" height="150px"
+                                    width="100px"></td>
+                        </tr>
+                        {% else %}
+                        <tr>
+                            <td>{{v.BakerProductId.Name}}</td>
+                            <td>{{v.Count}}</td>
+                            <td>{{v.Price}}</td>
+                            <td><img src="{{ v.BakerProductId.Image.url }}" alt="" class="img img-thumbnail"
+                                    height="150px" width="100px"></td>
+                        </tr>
+
+                        {% endif %}
+
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 text-center">
+                <select name="deliveryType" id="deliveryType" class="form-control">
+                    <option value="card">Card Payment</option>
+                    <option value="cash on delivery">Cash on Delivery</option>
+                </select>
+            </div>
+            <div class="col-md-6 text-center">
+                <input type="submit" class="btn btn-warning col-md-4" value="Place Order">
+            </div>
+        </div>
+    </form>
+</div>
+{% if messages %}
+{% for msg in messages %}
+<script>
+    alert('{{ msg }}')
+</script>
+{% endfor %}
+{% endif %}
+{% endblock %}
